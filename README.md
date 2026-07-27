@@ -11,17 +11,6 @@ UI against it.
 npx skills@latest add sumerenclave/design-skills
 ```
 
-This installs both skills into your agent's skills directory (`.claude/skills/`
-for Claude Code; add `-g` for user-level instead of per-project). Each skill
-folder is self-contained — SKILL.md plus its scripts — so you can also install
-just one with `--skill extract-system`.
-
-The scripts need Playwright in the project you run them from:
-
-```bash
-npm i -D playwright && npx playwright install chromium
-```
-
 ## Why
 
 Models don't have bad taste. They have **median** taste. Trained on the web, they
@@ -48,17 +37,26 @@ hands you the inverse for free. Don't infer the system. Read it.
 
 ## Use
 
-Once installed, just ask your agent — "extract the design system from
-linear.app", "audit this page against the Linear reference" — and the skills
-take it from there. Under the hood they run:
+Once installed, ask your agent — "extract the design system from linear.app",
+"audit this page against the Linear reference" — and the skills take it from
+there. The scripts need Playwright in the project they run in:
 
 ```bash
+npm i -D playwright && npx playwright install chromium
+```
+
+Working in this repo directly:
+
+```bash
+npm install && npx playwright install chromium
+npm test
+
 # capture a reference, once
-node .claude/skills/extract-system/scripts/extract.mjs https://linear.app/docs \
+node skills/extract-system/scripts/extract.mjs https://linear.app/docs \
      --out references/linear --theme dark
 
 # audit your app against it, repeatedly
-node .claude/skills/design-audit/scripts/audit.mjs http://localhost:3000/orders \
+node skills/design-audit/scripts/audit.mjs http://localhost:3000/orders \
      --ref references/linear.tokens.json --json .audit/orders.json
 ```
 
