@@ -1,4 +1,10 @@
-import { analyze } from '../lib/extract-core.mjs';
+import { readFileSync } from 'node:fs';
+import { analyze } from '../skills/extract-system/scripts/extract-core.mjs';
+
+/* extract-core.mjs is vendored into each skill so installs are self-contained.
+   The copies must stay byte-identical. */
+const copyA = readFileSync(new URL('../skills/extract-system/scripts/extract-core.mjs', import.meta.url), 'utf8');
+const copyB = readFileSync(new URL('../skills/design-audit/scripts/extract-core.mjs', import.meta.url), 'utf8');
 
 /** Build a fake computed-style record. */
 function node(o = {}) {
@@ -103,6 +109,7 @@ const checks = [
   ['disciplined is more on-grid', A.spacing.conformance > B.spacing.conformance],
   ['border strategy detected', A.surface.strategy === 'borders'],
   ['shadow strategy detected', B.surface.strategy === 'shadows'],
+  ['vendored extract-core copies identical', copyA === copyB],
 ];
 console.log('');
 let fail = 0;

@@ -1,10 +1,25 @@
 # Design Skills
 
+[![skills.sh](https://skills.sh/b/sumerenclave/design-skills)](https://skills.sh/sumerenclave/design-skills)
+
 Skills that read a real design system out of a live website, and audit your own
 UI against it.
 
+## Install
+
 ```bash
-npx skills@latest add YOUR_GH_HANDLE/design-skills
+npx skills@latest add sumerenclave/design-skills
+```
+
+This installs both skills into your agent's skills directory (`.claude/skills/`
+for Claude Code; add `-g` for user-level instead of per-project). Each skill
+folder is self-contained — SKILL.md plus its scripts — so you can also install
+just one with `--skill extract-system`.
+
+The scripts need Playwright in the project you run them from:
+
+```bash
+npm i -D playwright && npx playwright install chromium
 ```
 
 ## Why
@@ -33,16 +48,17 @@ hands you the inverse for free. Don't infer the system. Read it.
 
 ## Use
 
-```bash
-npm install && npx playwright install chromium
-npm test                                   # 9 assertions, should pass
+Once installed, just ask your agent — "extract the design system from
+linear.app", "audit this page against the Linear reference" — and the skills
+take it from there. Under the hood they run:
 
+```bash
 # capture a reference, once
-node skills/extract-system/scripts/extract.mjs https://linear.app/docs \
+node .claude/skills/extract-system/scripts/extract.mjs https://linear.app/docs \
      --out references/linear --theme dark
 
 # audit your app against it, repeatedly
-node skills/design-audit/scripts/audit.mjs http://localhost:3000/orders \
+node .claude/skills/design-audit/scripts/audit.mjs http://localhost:3000/orders \
      --ref references/linear.tokens.json --json .audit/orders.json
 ```
 
@@ -113,15 +129,17 @@ running `extract-system` yourself.
 
 ```
 skills/
-  extract-system/   SKILL.md + scripts/extract.mjs
-  design-audit/     SKILL.md + scripts/audit.mjs
-lib/
-  extract-core.mjs  collection, colour maths, histograms, markdown rendering
+  extract-system/   SKILL.md + scripts/extract.mjs + scripts/extract-core.mjs
+  design-audit/     SKILL.md + scripts/audit.mjs   + scripts/extract-core.mjs
 test/
-  analyze.test.mjs  runs without a browser
+  analyze.test.mjs  runs without a browser (npm test)
 references/
   linear.tokens.json + linear.design.md
 ```
+
+`extract-core.mjs` (collection, colour maths, histograms, markdown rendering)
+is vendored into each skill so every skill folder installs standalone; the test
+suite asserts the two copies stay identical.
 
 ## Related
 

@@ -13,8 +13,23 @@
 
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { dirname } from 'node:path';
-import { chromium } from 'playwright';
-import { COLLECT_SCRIPT, analyze, renderMarkdown } from '../../../lib/extract-core.mjs';
+import { createRequire } from 'node:module';
+import { pathToFileURL } from 'node:url';
+import { COLLECT_SCRIPT, analyze, renderMarkdown } from './extract-core.mjs';
+
+/* Skills install as symlinks, so bare-specifier resolution walks the CLI's
+   store, not the project. Fall back to resolving from the invoking cwd. */
+async function loadChromium() {
+  try { return (await import('playwright')).chromium; } catch {}
+  try {
+    const req = createRequire(pathToFileURL(process.cwd() + '/'));
+    const mod = await import(pathToFileURL(req.resolve('playwright')).href);
+    const chromium = mod.chromium ?? mod.default?.chromium;
+    if (chromium) return chromium;
+  } catch {}
+  console.error('playwright is required: npm i -D playwright && npx playwright install chromium');
+  process.exit(1);
+}
 
 const args = process.argv.slice(2);
 const url = args[0];
@@ -32,6 +47,7 @@ const wait = parseInt(flag('wait', '2500'), 10);
 const theme = flag('theme', 'dark');
 const [vw, vh] = flag('viewport', '1440x900').split('x').map(Number);
 
+const chromium = await loadChromium();
 const browser = await chromium.launch();
 const ctx = await browser.newContext({
   viewport: { width: vw, height: vh },

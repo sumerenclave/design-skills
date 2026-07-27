@@ -20,8 +20,10 @@ you the inverse for free. Don't infer the system — read it.
 
 ## Usage
 
+Paths below are relative to this skill's folder.
+
 ```bash
-npm i playwright && npx playwright install chromium
+npm i -D playwright && npx playwright install chromium
 
 node scripts/extract.mjs https://linear.app --out references/linear --theme dark
 node scripts/extract.mjs https://linear.app/homepage --out references/linear-marketing

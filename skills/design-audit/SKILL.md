@@ -18,7 +18,14 @@ composition. This does.
 
 ## Usage
 
+Paths below are relative to this skill's folder. Step 1 uses the
+`extract-system` skill installed alongside this one; skip it if a reference
+tokens file already exists.
+
 ```bash
+# 0. once per project
+npm i -D playwright && npx playwright install chromium
+
 # 1. capture the target once, commit it
 node ../extract-system/scripts/extract.mjs https://linear.app/docs --out references/linear
 
