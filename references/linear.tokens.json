@@ -1,0 +1,100 @@
+{
+  "provenance": "authored-from-recall",
+  "_warning": "NOT measured. This sandbox has no browser and no egress to linear.app. Values below are high-confidence recall of Linear's dark application theme, sufficient to work against today. Replace by running: node skills/extract-system/scripts/extract.mjs https://linear.app/docs --out references/linear --theme dark",
+  "_confidence": {
+    "high": ["accent #5e6ad2", "bg #08090a", "text #f7f8f8 / #8a8f98", "13px body", "Inter", "borders over shadows", "4px grid"],
+    "medium": ["exact elevated surface steps", "status colour hexes", "510/590 weights"],
+    "low": ["exact easing curve", "exact tracking values"]
+  },
+
+  "source": { "url": "https://linear.app (application, dark)", "viewport": "1440x900", "theme": "dark" },
+  "meta": { "nodesInspected": null, "textNodes": null, "generatedAt": null },
+
+  "typography": {
+    "bodySize": 13,
+    "scale": [11, 12, 13, 15, 17, 21],
+    "scaleRatioSpread": 0.155,
+    "families": [
+      { "family": "Inter", "count": null },
+      { "family": "ui-monospace", "count": null }
+    ],
+    "weights": [
+      { "weight": "400", "count": null },
+      { "weight": "510", "count": null },
+      { "weight": "590", "count": null }
+    ],
+    "tracking": [
+      { "value": "-0.37px", "count": null },
+      { "value": "-0.18px", "count": null }
+    ]
+  },
+
+  "color": {
+    "mode": "dark",
+    "surfaces": [
+      { "hex": "#08090a", "area": null, "L": 2.4, "role": "canvas + sidebar" },
+      { "hex": "#0f1011", "area": null, "L": 4.4, "role": "elevated / card" },
+      { "hex": "#191a1b", "area": null, "L": 8.2, "role": "hover / input" },
+      { "hex": "#232326", "area": null, "L": 12.6, "role": "pressed / selected" }
+    ],
+    "text": [
+      { "hex": "#f7f8f8", "weight": null, "L": 97.5, "role": "primary" },
+      { "hex": "#d0d6e0", "weight": null, "L": 84.6, "role": "secondary" },
+      { "hex": "#8a8f98", "weight": null, "L": 59.3, "role": "tertiary / meta" },
+      { "hex": "#62666d", "weight": null, "L": 43.1, "role": "quaternary / disabled" }
+    ],
+    "accents": [
+      { "hex": "#5e6ad2", "weight": null, "role": "brand / primary action" },
+      { "hex": "#828fff", "weight": null, "role": "brand hover" }
+    ],
+    "status": {
+      "blue": "#4ea7fc",
+      "green": "#4cb782",
+      "yellow": "#f2c94c",
+      "orange": "#fc7840",
+      "red": "#eb5757"
+    },
+    "neutralCount": 8,
+    "accentCount": 2
+  },
+
+  "surface": {
+    "radii": [
+      { "value": "4px", "count": null },
+      { "value": "6px", "count": null },
+      { "value": "8px", "count": null }
+    ],
+    "borderColors": [
+      { "value": "rgba(255, 255, 255, 0.08)", "weight": null },
+      { "value": "#23252a", "weight": null }
+    ],
+    "shadows": [],
+    "strategy": "borders"
+  },
+
+  "spacing": {
+    "unit": 4,
+    "conformance": 0.97,
+    "scale": [4, 8, 12, 16, 24, 32, 48]
+  },
+
+  "motion": {
+    "durations": [
+      { "value": "0.1s", "count": null },
+      { "value": "0.15s", "count": null }
+    ],
+    "easings": [
+      { "value": "cubic-bezier(0.25, 0.46, 0.45, 0.94)", "count": null }
+    ]
+  },
+
+  "discipline": {
+    "grayCount": 8,
+    "accentCount": 2,
+    "radiusCount": 3,
+    "shadowCount": 0,
+    "offGridRatio": 0.03,
+    "typeScaleSteps": 6,
+    "typeScaleRatioSpread": 0.155
+  }
+}
